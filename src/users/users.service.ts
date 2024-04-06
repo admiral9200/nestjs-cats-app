@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -15,6 +15,9 @@ export class UsersService {
     private usersRepository: Repository<User>
   ) {}
 
+  /**
+   * 
+   */
   async seedData(): Promise<void> {
     const users: Partial<User>[] = [
       { email: "admin@gmail.com", firstName: "admin", lastName: "admin", password: "123456", role: true }
@@ -28,12 +31,29 @@ export class UsersService {
     }
   }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+
+  async create(createUserDto: CreateUserDto): Promise<Partial<User> & User> {
+    const user: Partial<User> = {
+      email: createUserDto.email,
+      firstName: createUserDto.firstName,
+      lastName: createUserDto.lastName,
+      password: createUserDto.password,
+      role: false
+    };
+  
+    try {
+      const res = await this.usersRepository.save(user);
+      Logger.log("Signed up successfully!");
+      return res;
+    } catch (error) {
+      Logger.error(error);
+      throw new UnauthorizedException();
+    }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<User[]> {
+    const users = await this.usersRepository.find();
+    return users;
   }
 
   findOne(id: number) {

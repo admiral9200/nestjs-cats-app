@@ -44,6 +44,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 1. Install ORM
 npm install --save @nestjs/typeorm typeorm pg
+npm install --save @nestjs/jwt
 npm install dotenv
 
 2. Configure Users, Auth, Favorites
