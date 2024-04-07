@@ -1,4 +1,4 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -42,6 +42,11 @@ export class UsersService {
     };
   
     try {
+      const existedUser = (await this.findAll()).find(u => u.email === user.email);
+      if(existedUser) {
+        throw new ConflictException();
+      }
+
       const res = await this.usersRepository.save(user);
       Logger.log("Signed up successfully!");
       return res;
