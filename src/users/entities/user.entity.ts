@@ -3,6 +3,7 @@ import {
     Entity, 
     PrimaryGeneratedColumn 
 } from "typeorm";
+import { UserRole } from "../dto/create-user.dto";
 
 @Entity()
 export class User {
@@ -21,6 +22,6 @@ export class User {
     @Column()
     password: string;
 
-    @Column({ default: false })
-    role: boolean;
+    @Column()
+    role: UserRole;
 }

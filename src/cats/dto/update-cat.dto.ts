@@ -1,6 +1,6 @@
 import { IsInt, IsString } from 'class-validator';
 
-export class CreateCatDto {
+export class UpdateCatDto {
   @IsString()
   readonly name: string;
 

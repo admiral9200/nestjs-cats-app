@@ -1,5 +1,10 @@
 import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator';
 
+export enum UserRole {
+    User = 'user',
+    Admin = 'admin'
+};
+
 
 export class CreateUserDto {
     @IsEmail()

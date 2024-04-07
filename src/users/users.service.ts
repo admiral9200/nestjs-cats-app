@@ -2,7 +2,7 @@ import { ConflictException, Injectable, Logger, UnauthorizedException } from '@n
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UserRole } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -20,7 +20,7 @@ export class UsersService {
    */
   async seedData(): Promise<void> {
     const users: Partial<User>[] = [
-      { email: "admin@gmail.com", firstName: "admin", lastName: "admin", password: "123456", role: true }
+      { email: "admin@gmail.com", firstName: "admin", lastName: "admin", password: "123456", role: UserRole.Admin }
     ]
 
     try {
@@ -38,7 +38,7 @@ export class UsersService {
       firstName: createUserDto.firstName,
       lastName: createUserDto.lastName,
       password: createUserDto.password,
-      role: false
+      role: UserRole.User
     };
   
     try {

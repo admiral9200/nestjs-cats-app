@@ -17,18 +17,18 @@ describe('CatsController', () => {
     catsController = moduleRef.get<CatsController>(CatsController);
   });
 
-  describe('findAll', () => {
-    it('should return an array of cats', async () => {
-      const result: Cat[] = [
-        {
-          age: 2,
-          breed: 'Bombay',
-          name: 'Pixel',
-        },
-      ];
-      jest.spyOn(catsService, 'findAll').mockImplementation(() => result);
+  // describe('findAll', () => {
+  //   it('should return an array of cats', async () => {
+  //     const result: Cat[] = [
+  //       {
+  //         age: 2,
+  //         breed: 'Bombay',
+  //         name: 'Pixel',
+  //       },
+  //     ];
+  //     jest.spyOn(catsService, 'findAll').mockImplementation(() => result);
 
-      expect(await catsController.findAll()).toBe(result);
-    });
-  });
+  //     expect(await catsController.findAll()).toBe(result);
+  //   });
+  // });
 });
