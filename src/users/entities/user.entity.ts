@@ -1,9 +1,12 @@
 import { 
     Column,
     Entity, 
+    JoinTable, 
+    ManyToMany, 
     PrimaryGeneratedColumn 
 } from "typeorm";
 import { UserRole } from "../dto/create-user.dto";
+import { Cat } from "../../cats/entities/cat.entity";
 
 @Entity()
 export class User {
@@ -24,4 +27,8 @@ export class User {
 
     @Column()
     role: UserRole;
+
+    @ManyToMany(() => Cat, (cat) => cat.users)
+    @JoinTable()
+    favorites: Cat[]
 }

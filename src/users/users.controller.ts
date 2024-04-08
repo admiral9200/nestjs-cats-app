@@ -2,11 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nest
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Public } from '../auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Public()
   @Get('seed')
   async seedUsers(): Promise<string> {
     try {

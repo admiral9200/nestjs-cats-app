@@ -1,4 +1,4 @@
 export interface Favorite {
-    user_id: Number,
-    cat_id: Number
+    userId: number,
+    catId: number
 }

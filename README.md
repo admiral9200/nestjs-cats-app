@@ -52,3 +52,8 @@ npm install dotenv
 nest g resource users --no-spec
 nest g resource auth --no-spec
 nest g resource favorites --no-spec
+
+
+3. migrations
+npm run migration:create --name=users
+npm run migrate
