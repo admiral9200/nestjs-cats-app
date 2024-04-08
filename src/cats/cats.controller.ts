@@ -5,7 +5,7 @@ import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cat } from './interfaces/cat.interface';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard, Public } from '../auth/auth.guard';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
 @UseGuards(RolesGuard)
@@ -13,9 +13,10 @@ import { UpdateCatDto } from './dto/update-cat.dto';
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
+  
   @Post()
+  @Roles(['admin'])
   @UseGuards(AuthGuard)
-  // @Roles(['admin'])
   async create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
@@ -25,6 +26,7 @@ export class CatsController {
     return this.catsService.findAll();
   }
 
+
   @Get(':id')
   async findOne(
     @Param('id', new ParseIntPipe())
@@ -33,11 +35,13 @@ export class CatsController {
     return this.catsService.findOne(id);
   }
 
+  @Roles(['admin'])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
     return this.catsService.update(+id, updateCatDto);
   }
 
+  @Roles(['admin'])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.catsService.remove(+id);

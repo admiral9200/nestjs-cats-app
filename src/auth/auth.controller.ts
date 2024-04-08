@@ -9,7 +9,7 @@ import {
   Request
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard, Public } from './auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 
 @Controller('auth')
@@ -21,6 +21,7 @@ export class AuthController {
    * @param signInDto 
    * @returns 
    */
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: Record<string, any>) {
@@ -33,6 +34,7 @@ export class AuthController {
    * @param signUpDto 
    * @returns 
    */
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('register')
   signUp(@Body() signUpDto: Record<string, any>) {
@@ -42,17 +44,5 @@ export class AuthController {
       signUpDto.lastName,
       signUpDto.password
     );
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('profile')
-  @Roles(['admin'])
-  getProfile(@Request() req) {
-    return req.user;
-  }
-
-  @Get()
-  findAll(@Request() req) {
-    return req.user;
   }
 }
