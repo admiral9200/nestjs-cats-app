@@ -11,7 +11,6 @@ export class CatsService {
     @InjectRepository(Cat)
     private catsRepository: Repository<Cat>
   ) {}
-  private readonly cats: Cat[] = [];
 
   async create(createCatDto: CreateCatDto): Promise<Partial<Cat> & Cat | string> {
     const cat: Partial<Cat> = {
